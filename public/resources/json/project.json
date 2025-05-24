@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Ugly Portfolio",
+    "description": "A portfolio evolving from trash to less trash.",
+    "tags": ["HTML", "Tailwind", "JavaScript"]
+  },
+  {
+    "id": 2,
+    "name": "Secret Project 🔒",
+    "description": "Coming soon. Will involve APIs and suffering.",
+    "tags": ["API", "Next.js"]
+  }
+]
