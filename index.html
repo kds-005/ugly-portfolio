@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>My Less Ugly Portfolio</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="/output.css" rel="stylesheet">
-  </head>
-  <body class="bg-gray-100 px-12 py-[90px]">
-    <div
-      class="max-w-[720px] min-h-[350px] mx-auto bg-white rounded-[10px] shadow px-[60px] py-12"
-    >
-      <h1 class="text-2xl font-bold text-gray-800 mb-12">
-        Welcome to my *slightly better(maybe)* portfolio.
-      </h1>
-      <p class="text-gray-500 max-w-[400px] my-[25px]">
-        I'm learning full-stack the hard way hopefully. But lets see how far i
-        can go. <br />(probably not far ig &#128511;&#128511;)
-      </p>
-      <img
-        src="resources/pepe/67420-cryingpepe.png"
-      />
-      <button
-        class="max-w-[200px] mt-4 px-4 py-2 bg-violet-500 text-white rounded shadow-lg hover:bg-purple-600"
-      >
-        I hate blue button (Click to Support)
-      </button>
-    </div>
-    <div
-      class="max-w-[720px] mx-auto my-[20px] bg-white rounded-md shadow px-[60px] py-12"
-    >
-      <h1 class="text-xl font-bold text-grey-800 mb-12">Projects</h1>
-      <p class="text-grey-500">
-        I am a big dum dum, if havn't done any &#128540;&#128540;
-      </p>
-      <button
-        class="max-w-[200px] mt-5 px-4 py-2 bg-violet-500 text-white rounded shadow-lg hover:bg-purple-600"
-        onclick="alert('Naahhh &#128513;&#128520;&#128520;&#128520;');"
-      >
-        Click to see if i will ever do a project
-      </button>
-    </div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+
+<head>
+  <title>My Less Ugly Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="/output.css" rel="stylesheet" />
+</head>
+
+<body class="bg-violet-200 px-12 py-[90px]">
+  <div class="max-w-[720px] min-h-[350px] mx-auto bg-gray-100 rounded-[10px] shadow px-[60px] py-12">
+    <h1 class="text-3xl font-bold text-gray-800 mb-12">
+      Welcome to my *slightly better(maybe)* portfolio.
+    </h1>
+    <p class="text-gray-500 max-w-[400px] my-[25px]">
+      I'm learning full-stack the hard way hopefully. But lets see how far i
+      can go. <br />(probably not far ig &#128511;&#128511;)
+    </p>
+    <img src="resources/pepe/67420-cryingpepe.png" />
+    <button class="max-w-[200px] mt-4 px-4 py-2 bg-violet-500 text-white rounded shadow-lg hover:bg-purple-600">
+      I hate blue button (Click to Support)
+    </button>
+  </div>
+  <div class="max-w-[720px] mx-auto my-[20px] bg-gray-100 rounded-md shadow px-[60px] py-12">
+    <h1 class="text-3xl font-bold text-grey-800 mb-12">Projects</h1>
+    <div id="project-cards"></div>
+  </div>
+  <script>
+    async function getData(jsonLocation) {
+      try {
+        let response = await fetch(jsonLocation);
+        let data = await response.json()
+        let projectCards = '';
+        for (let row of data) {
+          let skillSet = '';
+          row.tags.map(skills => skillSet = skillSet.concat(`<span class="bg-violet-600 text-white py-[5px] px-[10px] text-sm/8 rounded shadow-md">${skills}</span>\n`))
+          projectCards = projectCards.concat(
+            `<div class="w-[300px] min-h-[200px] bg-violet-200 rounded-md shadow my-[20px] p-[30px] hover:shadow-purple-950 duration-100">
+                        <h3 class="text-lg text-gray-800 font-bold pb-[10px]">${row.name}</h3>
+                        <p class="text-xs text-gray-500 pb-[20px]">
+                            ${row.description}
+                        </p>
+                        ${skillSet}
+                    </div> \n`)
+        }
+        let node = document.querySelector('#project-cards');
+        node.innerHTML = projectCards;
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    getData('resources/json/project.json')
+  </script>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
 </html>
